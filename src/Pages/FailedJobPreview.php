@@ -6,6 +6,8 @@ use BackedEnum;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Panel;
+use Filament\Support\Enums\Width;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
 use Miguelenes\FilamentHorizon\Services\HorizonApi;
@@ -13,6 +15,8 @@ use Miguelenes\FilamentHorizon\Services\HorizonApi;
 class FailedJobPreview extends Page
 {
     use AuthorizesHorizonAccess;
+
+    protected static ?string $slug = 'failed-job-preview';
 
     protected string $view = 'filament-horizon::pages.failed-job-preview';
 
@@ -22,11 +26,16 @@ class FailedJobPreview extends Page
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public string $jobId;
+    public string $jobId = '';
 
     public bool $isRetrying = false;
 
-    public function mount(string $jobId): void
+    public static function getRoutePath(Panel $panel): string
+    {
+        return '/failed-job-preview/{jobId}';
+    }
+
+    public function mount(string $jobId = ''): void
     {
         $this->jobId = $jobId;
     }
@@ -87,5 +96,10 @@ class FailedJobPreview extends Page
         }
 
         return $job->retried_by->contains(fn ($retry) => ($retry->status ?? null) === 'completed');
+    }
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

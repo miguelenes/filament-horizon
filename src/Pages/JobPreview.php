@@ -5,7 +5,8 @@ namespace Miguelenes\FilamentHorizon\Pages;
 use BackedEnum;
 use Carbon\Carbon;
 use Filament\Pages\Page;
-use Illuminate\Database\Eloquent\Model;
+use Filament\Panel;
+use Filament\Support\Enums\Width;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
 use Miguelenes\FilamentHorizon\Services\HorizonApi;
@@ -13,6 +14,8 @@ use Miguelenes\FilamentHorizon\Services\HorizonApi;
 class JobPreview extends Page
 {
     use AuthorizesHorizonAccess;
+
+    protected static ?string $slug = 'job-preview';
 
     protected string $view = 'filament-horizon::pages.job-preview';
 
@@ -22,9 +25,14 @@ class JobPreview extends Page
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public string $jobId;
+    public string $jobId = '';
 
-    public function mount(string $jobId): void
+    public static function getRoutePath(Panel $panel): string
+    {
+        return '/job-preview/{jobId}';
+    }
+
+    public function mount(string $jobId = ''): void
     {
         $this->jobId = $jobId;
     }
@@ -32,11 +40,6 @@ class JobPreview extends Page
     public function getTitle(): string
     {
         return 'Job Details';
-    }
-
-    public static function getUrl(array $parameters = [], bool $isAbsolute = true, ?string $panel = null, ?Model $tenant = null): string
-    {
-        return parent::getUrl($parameters, $isAbsolute, $panel, $tenant);
     }
 
     public function getJob(): ?object
@@ -60,5 +63,10 @@ class JobPreview extends Page
         }
 
         return Carbon::createFromTimestamp($timestamp)->format('Y-m-d H:i:s');
+    }
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

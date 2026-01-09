@@ -5,6 +5,8 @@ namespace Miguelenes\FilamentHorizon\Pages;
 use BackedEnum;
 use Carbon\Carbon;
 use Filament\Pages\Page;
+use Filament\Panel;
+use Filament\Support\Enums\Width;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
 use Miguelenes\FilamentHorizon\Services\HorizonApi;
@@ -12,6 +14,8 @@ use Miguelenes\FilamentHorizon\Services\HorizonApi;
 class MetricsPreview extends Page
 {
     use AuthorizesHorizonAccess;
+
+    protected static ?string $slug = 'metrics-preview';
 
     protected string $view = 'filament-horizon::pages.metrics-preview';
 
@@ -23,24 +27,24 @@ class MetricsPreview extends Page
 
     public string $type = 'jobs';
 
-    public string $slug = '';
+    public string $metricSlug = '';
 
-    public static function getUrlRoute(): string
+    public static function getRoutePath(Panel $panel): string
     {
-        return 'metrics-preview/{type}/{slug}';
+        return '/metrics-preview/{type}/{metricSlug}';
     }
 
-    public function mount(string $type = 'jobs', string $slug = ''): void
+    public function mount(string $type = 'jobs', string $metricSlug = ''): void
     {
         $this->type = $type;
-        $this->slug = $slug;
+        $this->metricSlug = urldecode($metricSlug);
     }
 
     public function getTitle(): string
     {
         return $this->type === 'jobs'
-            ? $this->getJobBaseName($this->slug)
-            : $this->slug;
+            ? $this->getJobBaseName($this->metricSlug)
+            : $this->metricSlug;
     }
 
     public function getSnapshots(): array
@@ -48,10 +52,10 @@ class MetricsPreview extends Page
         $api = app(HorizonApi::class);
 
         if ($this->type === 'queues') {
-            return $api->getQueueSnapshots($this->slug);
+            return $api->getQueueSnapshots($this->metricSlug);
         }
 
-        return $api->getJobSnapshots($this->slug);
+        return $api->getJobSnapshots($this->metricSlug);
     }
 
     public function getMetricInfo(): array
@@ -61,21 +65,21 @@ class MetricsPreview extends Page
         if ($this->type === 'queues') {
             $queues = $api->getMeasuredQueues();
             foreach ($queues as $queue) {
-                if ($queue['name'] === $this->slug) {
+                if ($queue['name'] === $this->metricSlug) {
                     return $queue;
                 }
             }
         } else {
             $jobs = $api->getMeasuredJobs();
             foreach ($jobs as $job) {
-                if ($job['name'] === $this->slug) {
+                if ($job['name'] === $this->metricSlug) {
                     return $job;
                 }
             }
         }
 
         return [
-            'name' => $this->slug,
+            'name' => $this->metricSlug,
             'throughput' => 0,
             'runtime' => 0,
         ];
@@ -113,5 +117,10 @@ class MetricsPreview extends Page
     protected function formatRuntime(float $runtime): string
     {
         return number_format($runtime, 2) . 'ms';
+    }
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

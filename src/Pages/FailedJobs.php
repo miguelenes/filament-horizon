@@ -6,6 +6,7 @@ use BackedEnum;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Support\Enums\Width;
 use Livewire\Attributes\Url;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
@@ -131,5 +132,11 @@ class FailedJobs extends Page
     public function wasRetried(object $job): bool
     {
         return isset($job->retried_by) && $job->retried_by instanceof \Illuminate\Support\Collection && $job->retried_by->isNotEmpty();
+    }
+
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

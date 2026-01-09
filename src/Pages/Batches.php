@@ -5,6 +5,7 @@ namespace Miguelenes\FilamentHorizon\Pages;
 use BackedEnum;
 use Carbon\Carbon;
 use Filament\Pages\Page;
+use Filament\Support\Enums\Width;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
 use Miguelenes\FilamentHorizon\Services\HorizonApi;
@@ -68,8 +69,14 @@ class Batches extends Page
             return 0;
         }
 
-        $processed = $batch->processedJobs ?? 0;
+        $pending = $batch->pendingJobs ?? 0;
+        $processed = $total - $pending;
 
         return (int) round(($processed / $total) * 100);
+    }
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

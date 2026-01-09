@@ -4,6 +4,7 @@ namespace Miguelenes\FilamentHorizon\Pages;
 
 use BackedEnum;
 use Filament\Pages\Page;
+use Filament\Support\Enums\Width;
 use Livewire\Attributes\Url;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
@@ -60,5 +61,10 @@ class Metrics extends Page
     protected function formatRuntime(float $runtime): string
     {
         return number_format($runtime, 2) . 'ms';
+    }
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

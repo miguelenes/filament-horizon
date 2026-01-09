@@ -4,6 +4,7 @@ namespace Miguelenes\FilamentHorizon\Pages;
 
 use BackedEnum;
 use Filament\Pages\Page;
+use Filament\Support\Enums\Width;
 use Livewire\Attributes\Url;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
@@ -110,5 +111,10 @@ class RecentJobs extends Page
         }
 
         return \Carbon\Carbon::createFromTimestamp($timestamp)->diffForHumans();
+    }
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

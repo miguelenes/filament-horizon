@@ -6,6 +6,8 @@ use BackedEnum;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Panel;
+use Filament\Support\Enums\Width;
 use Livewire\Attributes\Url;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
@@ -15,6 +17,8 @@ class MonitoringTag extends Page
 {
     use AuthorizesHorizonAccess;
 
+    protected static ?string $slug = 'monitoring-tag';
+
     protected string $view = 'filament-horizon::pages.monitoring-tag';
 
     protected static ?string $cluster = Horizon::class;
@@ -23,7 +27,7 @@ class MonitoringTag extends Page
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public string $tag;
+    public string $tag = '';
 
     #[Url]
     public string $type = 'jobs';
@@ -35,9 +39,14 @@ class MonitoringTag extends Page
     /** @var array<string> */
     public array $retryingJobs = [];
 
-    public function mount(string $tag): void
+    public static function getRoutePath(Panel $panel): string
     {
-        $this->tag = $tag;
+        return '/monitoring-tag/{tag}';
+    }
+
+    public function mount(string $tag = ''): void
+    {
+        $this->tag = urldecode($tag);
     }
 
     public function getTitle(): string
@@ -122,5 +131,10 @@ class MonitoringTag extends Page
         }
 
         return Carbon::createFromTimestamp($timestamp)->diffForHumans();
+    }
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

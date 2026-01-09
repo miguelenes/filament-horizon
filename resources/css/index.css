@@ -1,153 +1,294 @@
 /* Filament Horizon Plugin Styles */
+/* These styles work alongside Filament's existing Tailwind CSS */
 
-/* Ensure proper grid behavior */
-.grid {
-    display: grid;
+/* Horizon Theme Variables - Light Mode (default) */
+:root {
+    --horizon-bg-primary: rgb(255, 255, 255);
+    --horizon-bg-secondary: rgb(249, 250, 251);
+    --horizon-bg-tertiary: rgb(243, 244, 246);
+    --horizon-bg-code: rgb(243, 244, 246);
+    --horizon-border: rgb(229, 231, 235);
+    --horizon-border-subtle: rgb(243, 244, 246);
+    --horizon-text-primary: rgb(17, 24, 39);
+    --horizon-text-secondary: rgb(55, 65, 81);
+    --horizon-text-muted: rgb(107, 114, 128);
+    --horizon-text-inverted: rgb(255, 255, 255);
+    --horizon-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --horizon-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-/* Responsive grid fixes */
-@media (min-width: 768px) {
-    .md\:grid-cols-4 {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
+/* Horizon Theme Variables - Dark Mode */
+.dark {
+    --horizon-bg-primary: rgb(31, 41, 55);
+    --horizon-bg-secondary: rgb(17, 24, 39);
+    --horizon-bg-tertiary: rgb(55, 65, 81);
+    --horizon-bg-code: rgba(255, 255, 255, 0.1);
+    --horizon-border: rgb(55, 65, 81);
+    --horizon-border-subtle: rgb(55, 65, 81);
+    --horizon-text-primary: rgb(255, 255, 255);
+    --horizon-text-secondary: rgb(209, 213, 219);
+    --horizon-text-muted: rgb(156, 163, 175);
+    --horizon-text-inverted: rgb(17, 24, 39);
+    --horizon-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+    --horizon-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
-@media (min-width: 1024px) {
-    .lg\:grid-cols-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+/* Horizon Card Styles */
+.fi-horizon-card {
+    background: var(--horizon-bg-primary);
+    border: 1px solid var(--horizon-border);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: var(--horizon-shadow-sm);
 }
 
-/* Gap utilities */
-.gap-4 {
-    gap: 1rem;
+.fi-horizon-card-header {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--horizon-border);
 }
 
-.gap-6 {
-    gap: 1.5rem;
+.fi-horizon-card-body {
+    padding: 1rem;
 }
 
-/* Table styling */
+/* Horizon Table Styles */
 .fi-horizon-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.fi-horizon-table th,
-.fi-horizon-table td {
-    padding: 0.5rem 0.75rem;
-    text-align: left;
-}
-
 .fi-horizon-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 600;
+    color: var(--horizon-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: rgb(107 114 128);
+    background: var(--horizon-bg-secondary);
+}
+
+.fi-horizon-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--horizon-text-secondary);
 }
 
 .fi-horizon-table tbody tr {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--horizon-border-subtle);
+    transition: background-color 0.15s ease;
 }
 
-/* Code/monospace styling */
-code {
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+.fi-horizon-table tbody tr:hover {
+    background: var(--horizon-bg-secondary);
 }
 
-/* Status colors */
-.text-green-400 { color: rgb(74 222 128); }
-.text-green-500 { color: rgb(34 197 94); }
-.text-yellow-400 { color: rgb(250 204 21); }
-.text-yellow-500 { color: rgb(234 179 8); }
-.text-red-400 { color: rgb(248 113 113); }
-.text-red-500 { color: rgb(239 68 68); }
+/* Horizon Status Colors */
+.fi-horizon-status-running { color: rgb(34, 197, 94); }
+.fi-horizon-status-paused { color: rgb(234, 179, 8); }
+.fi-horizon-status-inactive { color: rgb(239, 68, 68); }
 
-.bg-green-500\/10 { background-color: rgba(34, 197, 94, 0.1); }
-.bg-green-500\/20 { background-color: rgba(34, 197, 94, 0.2); }
-.bg-yellow-500\/10 { background-color: rgba(234, 179, 8, 0.1); }
-.bg-yellow-500\/20 { background-color: rgba(234, 179, 8, 0.2); }
-.bg-red-500\/10 { background-color: rgba(239, 68, 68, 0.1); }
-.bg-red-500\/20 { background-color: rgba(239, 68, 68, 0.2); }
-.bg-white\/5 { background-color: rgba(255, 255, 255, 0.05); }
-.bg-white\/10 { background-color: rgba(255, 255, 255, 0.1); }
+/* Horizon Badge Styles */
+.fi-horizon-badge {
+    display: inline-flex;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
 
-.border-green-500\/20 { border-color: rgba(34, 197, 94, 0.2); }
-.border-yellow-500\/20 { border-color: rgba(234, 179, 8, 0.2); }
-.border-red-500\/20 { border-color: rgba(239, 68, 68, 0.2); }
-.border-white\/5 { border-color: rgba(255, 255, 255, 0.05); }
-.border-white\/10 { border-color: rgba(255, 255, 255, 0.1); }
+.fi-horizon-badge-success {
+    background: rgb(220, 252, 231);
+    color: rgb(21, 128, 61);
+    border: 1px solid rgb(187, 247, 208);
+}
 
-.ring-white\/10 { --tw-ring-color: rgba(255, 255, 255, 0.1); }
+.fi-horizon-badge-warning {
+    background: rgb(254, 249, 195);
+    color: rgb(161, 98, 7);
+    border: 1px solid rgb(254, 240, 138);
+}
 
-/* Background colors */
-.bg-gray-900 { background-color: rgb(17 24 39); }
+.fi-horizon-badge-danger {
+    background: rgb(254, 226, 226);
+    color: rgb(185, 28, 28);
+    border: 1px solid rgb(254, 202, 202);
+}
 
-/* Text colors */
-.text-gray-300 { color: rgb(209 213 219); }
-.text-gray-400 { color: rgb(156 163 175); }
-.text-gray-500 { color: rgb(107 114 128); }
+.fi-horizon-badge-primary {
+    background: rgb(254, 243, 199);
+    color: rgb(180, 83, 9);
+    border: 1px solid rgb(253, 230, 138);
+}
 
-/* Rounded corners */
-.rounded-xl { border-radius: 0.75rem; }
-.rounded-full { border-radius: 9999px; }
+.dark .fi-horizon-badge-success {
+    background: rgba(34, 197, 94, 0.15);
+    color: rgb(74, 222, 128);
+    border-color: rgba(34, 197, 94, 0.3);
+}
 
-/* Spacing */
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-4 { margin-bottom: 1rem; }
-.mb-6 { margin-bottom: 1.5rem; }
-.mt-1 { margin-top: 0.25rem; }
-.p-4 { padding: 1rem; }
-.px-1\.5 { padding-left: 0.375rem; padding-right: 0.375rem; }
-.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
-.px-4 { padding-left: 1rem; padding-right: 1rem; }
-.py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
-.py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
-.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-.pb-2 { padding-bottom: 0.5rem; }
-.pb-3 { padding-bottom: 0.75rem; }
+.dark .fi-horizon-badge-warning {
+    background: rgba(234, 179, 8, 0.15);
+    color: rgb(250, 204, 21);
+    border-color: rgba(234, 179, 8, 0.3);
+}
 
-/* Flexbox */
-.flex { display: flex; }
-.flex-1 { flex: 1 1 0%; }
-.flex-shrink-0 { flex-shrink: 0; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
+.dark .fi-horizon-badge-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: rgb(248, 113, 113);
+    border-color: rgba(239, 68, 68, 0.3);
+}
 
-/* Text */
-.text-xs { font-size: 0.75rem; line-height: 1rem; }
-.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-.text-2xl { font-size: 1.5rem; line-height: 2rem; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
-.uppercase { text-transform: uppercase; }
-.text-right { text-align: right; }
-.text-center { text-align: center; }
-.text-left { text-align: left; }
+.dark .fi-horizon-badge-primary {
+    background: rgba(251, 191, 36, 0.15);
+    color: rgb(251, 191, 36);
+    border-color: rgba(251, 191, 36, 0.3);
+}
 
-/* Sizing */
-.w-2 { width: 0.5rem; }
-.w-6 { width: 1.5rem; }
-.w-8 { width: 2rem; }
-.w-12 { width: 3rem; }
-.w-full { width: 100%; }
-.h-2 { height: 0.5rem; }
-.h-6 { height: 1.5rem; }
-.h-8 { height: 2rem; }
-.h-12 { height: 3rem; }
+/* Code blocks */
+.fi-horizon-code {
+    background: var(--horizon-bg-code);
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: var(--horizon-text-primary);
+    border: 1px solid var(--horizon-border-subtle);
+}
 
-/* Misc */
-.overflow-hidden { overflow: hidden; }
-.overflow-x-auto { overflow-x: auto; }
-.border { border-width: 1px; }
-.border-t { border-top-width: 1px; }
-.border-b { border-bottom-width: 1px; }
-.mx-auto { margin-left: auto; margin-right: auto; }
-.opacity-50 { opacity: 0.5; }
-.last\:mb-0:last-child { margin-bottom: 0; }
+/* Pre blocks */
+.fi-horizon-pre {
+    font-size: 0.75rem;
+    background: var(--horizon-bg-tertiary);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin: 0;
+    color: var(--horizon-text-primary);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    border: 1px solid var(--horizon-border-subtle);
+}
+
+.fi-horizon-pre-error {
+    background: rgb(254, 242, 242);
+    color: rgb(153, 27, 27);
+    border-color: rgb(254, 202, 202);
+}
+
+.dark .fi-horizon-pre-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: rgb(254, 202, 202);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Status indicator dots */
+.fi-horizon-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+}
+
+.fi-horizon-dot-success { background: rgb(34, 197, 94); }
+.fi-horizon-dot-warning { background: rgb(234, 179, 8); }
+.fi-horizon-dot-danger { background: rgb(239, 68, 68); }
+
+/* Link styles */
+.fi-horizon-link {
+    color: rgb(180, 83, 9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+.dark .fi-horizon-link {
+    color: rgb(251, 191, 36);
+}
+
+.fi-horizon-link:hover {
+    color: rgb(146, 64, 14);
+    text-decoration: underline;
+}
+
+.dark .fi-horizon-link:hover {
+    color: rgb(253, 224, 71);
+}
+
+.fi-horizon-link-danger {
+    color: rgb(185, 28, 28);
+}
+
+.dark .fi-horizon-link-danger {
+    color: rgb(248, 113, 113);
+}
+
+.fi-horizon-link-danger:hover {
+    color: rgb(153, 27, 27);
+}
+
+.dark .fi-horizon-link-danger:hover {
+    color: rgb(254, 202, 202);
+}
+
+/* Empty state */
+.fi-horizon-empty {
+    text-align: center;
+    padding: 3rem;
+    color: var(--horizon-text-muted);
+}
+
+/* Stat cards */
+.fi-horizon-stat-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--horizon-text-muted);
+    margin-bottom: 0.375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.fi-horizon-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--horizon-text-primary);
+    line-height: 1.2;
+}
+
+/* Section headers */
+.fi-horizon-section-title {
+    font-weight: 600;
+    color: var(--horizon-text-primary);
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Detail labels */
+.fi-horizon-detail-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--horizon-text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.fi-horizon-detail-value {
+    font-size: 0.875rem;
+    color: var(--horizon-text-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .fi-horizon-grid-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .fi-horizon-grid-2 {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .fi-horizon-grid-4 {
+        grid-template-columns: 1fr !important;
+    }
+}

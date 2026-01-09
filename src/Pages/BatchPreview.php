@@ -6,6 +6,8 @@ use BackedEnum;
 use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Panel;
+use Filament\Support\Enums\Width;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
 use Miguelenes\FilamentHorizon\Services\HorizonApi;
@@ -13,6 +15,8 @@ use Miguelenes\FilamentHorizon\Services\HorizonApi;
 class BatchPreview extends Page
 {
     use AuthorizesHorizonAccess;
+
+    protected static ?string $slug = 'batch-preview';
 
     protected string $view = 'filament-horizon::pages.batch-preview';
 
@@ -22,11 +26,16 @@ class BatchPreview extends Page
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public string $batchId;
+    public string $batchId = '';
 
     public bool $isRetrying = false;
 
-    public function mount(string $batchId): void
+    public static function getRoutePath(Panel $panel): string
+    {
+        return '/batch-preview/{batchId}';
+    }
+
+    public function mount(string $batchId = ''): void
     {
         $this->batchId = $batchId;
     }
@@ -80,7 +89,8 @@ class BatchPreview extends Page
             return 0;
         }
 
-        $processed = $batch->processedJobs ?? 0;
+        $pending = $batch->pendingJobs ?? 0;
+        $processed = $total - $pending;
 
         return (int) round(($processed / $total) * 100);
     }
@@ -90,5 +100,10 @@ class BatchPreview extends Page
         $parts = explode('\\', $name);
 
         return end($parts);
+    }
+
+    public function getMaxContentWidth(): Width|null|string
+    {
+        return Width::Full;
     }
 }

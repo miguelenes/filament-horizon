@@ -5,19 +5,21 @@
             <div style="display: flex; gap: 0.5rem;">
                 <button
                     wire:click="setType('pending')"
-                    style="padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; {{ $type === 'pending' ? 'background: rgba(245, 158, 11, 0.2); color: rgb(251, 191, 36);' : 'background: rgba(255, 255, 255, 0.05); color: rgb(156, 163, 175);' }}"
+                    class="{{ $type === 'pending' ? 'fi-horizon-badge fi-horizon-badge-warning' : '' }}"
+                    style="padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; {{ $type === 'pending' ? '' : 'background: var(--horizon-bg-code); color: var(--horizon-text-muted);' }}"
                 >
                     {{ __('filament-horizon::horizon.pages.jobs.pending') }}
                 </button>
                 <button
                     wire:click="setType('completed')"
-                    style="padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; {{ $type === 'completed' ? 'background: rgba(34, 197, 94, 0.2); color: rgb(74, 222, 128);' : 'background: rgba(255, 255, 255, 0.05); color: rgb(156, 163, 175);' }}"
+                    class="{{ $type === 'completed' ? 'fi-horizon-badge fi-horizon-badge-success' : '' }}"
+                    style="padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; {{ $type === 'completed' ? '' : 'background: var(--horizon-bg-code); color: var(--horizon-text-muted);' }}"
                 >
                     {{ __('filament-horizon::horizon.pages.jobs.completed') }}
                 </button>
                 <button
                     wire:click="setType('silenced')"
-                    style="padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; {{ $type === 'silenced' ? 'background: rgba(107, 114, 128, 0.2); color: rgb(156, 163, 175);' : 'background: rgba(255, 255, 255, 0.05); color: rgb(156, 163, 175);' }}"
+                    style="padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; border: none; cursor: pointer; {{ $type === 'silenced' ? 'background: rgba(107, 114, 128, 0.2); color: var(--horizon-text-muted);' : 'background: var(--horizon-bg-code); color: var(--horizon-text-muted);' }}"
                 >
                     {{ __('filament-horizon::horizon.pages.jobs.silenced') }}
                 </button>
@@ -34,7 +36,7 @@
         </div>
 
         {{-- Jobs Table --}}
-        <div style="border-radius: 0.75rem; background: rgb(17, 24, 39); border: 1px solid rgba(255, 255, 255, 0.1); overflow: hidden;">
+        <div class="fi-horizon-card">
             @php
                 $data = $this->getJobs();
                 $jobs = $data['jobs'];
@@ -44,32 +46,23 @@
 
             @if($jobs->isNotEmpty())
                 <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse;">
+                    <table class="fi-horizon-table">
                         <thead>
-                            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                                <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 500; color: rgb(107, 114, 128); text-transform: uppercase; letter-spacing: 0.05em;">
-                                    {{ __('filament-horizon::horizon.columns.job') }}
-                                </th>
-                                <th style="padding: 0.75rem 1rem; text-align: right; font-size: 0.75rem; font-weight: 500; color: rgb(107, 114, 128); text-transform: uppercase; letter-spacing: 0.05em;">
-                                    {{ __('filament-horizon::horizon.columns.runtime') }}
-                                </th>
-                                <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 500; color: rgb(107, 114, 128); text-transform: uppercase; letter-spacing: 0.05em;">
-                                    {{ __('filament-horizon::horizon.columns.status') }}
-                                </th>
+                            <tr style="border-bottom: 1px solid var(--horizon-border);">
+                                <th>{{ __('filament-horizon::horizon.columns.job') }}</th>
+                                <th style="text-align: right;">{{ __('filament-horizon::horizon.columns.runtime') }}</th>
+                                <th>{{ __('filament-horizon::horizon.columns.status') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($jobs as $job)
-                                <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
-                                    <td style="padding: 0.75rem 1rem;">
-                                        <a
-                                            href="{{ \Miguelenes\FilamentHorizon\Pages\JobPreview::getUrl(['jobId' => $job->id]) }}"
-                                            style="font-size: 0.875rem; font-weight: 500; color: rgb(251, 191, 36); text-decoration: none;"
-                                        >
+                                <tr>
+                                    <td>
+                                        <a href="{{ \Miguelenes\FilamentHorizon\Pages\JobPreview::getUrl(['jobId' => $job->id]) }}" class="fi-horizon-link">
                                             {{ $this->getJobBaseName($job->name ?? $job->payload->displayName ?? 'Unknown') }}
                                         </a>
-                                        <div style="font-size: 0.75rem; color: rgb(107, 114, 128); margin-top: 0.25rem;">
-                                            Queue: <code style="background: rgba(255,255,255,0.05); padding: 0.125rem 0.25rem; border-radius: 0.25rem; font-family: monospace;">{{ $job->queue ?? '-' }}</code>
+                                        <div style="font-size: 0.75rem; color: var(--horizon-text-muted); margin-top: 0.25rem;">
+                                            Queue: <code class="fi-horizon-code">{{ $job->queue ?? '-' }}</code>
                                             @php
                                                 $tags = $job->payload->tags ?? [];
                                                 $tags = is_array($tags) ? $tags : (is_object($tags) ? (array) $tags : []);
@@ -79,20 +72,20 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td style="padding: 0.75rem 1rem; text-align: right; font-size: 0.875rem; color: rgb(156, 163, 175);">
+                                    <td style="text-align: right;">
                                         @if(isset($job->completed_at) && isset($job->reserved_at))
                                             {{ number_format($job->completed_at - $job->reserved_at, 2) }}s
                                         @else
                                             -
                                         @endif
                                     </td>
-                                    <td style="padding: 0.75rem 1rem;">
+                                    <td>
                                         @if($type === 'pending')
-                                            <span style="display: inline-flex; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background: rgba(234, 179, 8, 0.1); color: rgb(250, 204, 21);">Pending</span>
+                                            <span class="fi-horizon-badge fi-horizon-badge-warning">Pending</span>
                                         @elseif($type === 'completed')
-                                            <span style="display: inline-flex; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background: rgba(34, 197, 94, 0.1); color: rgb(74, 222, 128);">Completed</span>
+                                            <span class="fi-horizon-badge fi-horizon-badge-success">Completed</span>
                                         @else
-                                            <span style="display: inline-flex; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background: rgba(107, 114, 128, 0.1); color: rgb(156, 163, 175);">Silenced</span>
+                                            <span class="fi-horizon-badge" style="background: rgba(107, 114, 128, 0.1); color: var(--horizon-text-muted);">Silenced</span>
                                         @endif
                                     </td>
                                 </tr>
@@ -102,8 +95,8 @@
                 </div>
 
                 {{-- Pagination --}}
-                <div style="padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: space-between;">
-                    <div style="font-size: 0.875rem; color: rgb(107, 114, 128);">
+                <div style="padding: 1rem; border-top: 1px solid var(--horizon-border); display: flex; align-items: center; justify-content: space-between;">
+                    <div style="font-size: 0.875rem; color: var(--horizon-text-muted);">
                         Page {{ $page }} of {{ $totalPages }} ({{ number_format($total) }} total)
                     </div>
                     <div style="display: flex; gap: 0.5rem;">
@@ -116,7 +109,7 @@
                     </div>
                 </div>
             @else
-                <div style="text-align: center; padding: 3rem; color: rgb(107, 114, 128);">
+                <div class="fi-horizon-empty">
                     {{ __('filament-horizon::horizon.messages.no_jobs') }}
                 </div>
             @endif
