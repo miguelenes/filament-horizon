@@ -1,5 +1,6 @@
 <?php
 
+use Eloquage\FilamentHorizon\Services\HorizonApi;
 use Illuminate\Bus\BatchRepository;
 use Laravel\Horizon\Contracts\JobRepository;
 use Laravel\Horizon\Contracts\MasterSupervisorRepository;
@@ -7,7 +8,6 @@ use Laravel\Horizon\Contracts\MetricsRepository;
 use Laravel\Horizon\Contracts\SupervisorRepository;
 use Laravel\Horizon\Contracts\TagRepository;
 use Laravel\Horizon\Contracts\WorkloadRepository;
-use Eloquage\FilamentHorizon\Services\HorizonApi;
 
 it('resolves HorizonApi from container', function () {
     $api = app(HorizonApi::class);

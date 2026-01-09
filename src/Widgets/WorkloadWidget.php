@@ -3,8 +3,8 @@
 namespace Eloquage\FilamentHorizon\Widgets;
 
 use Carbon\CarbonInterval;
-use Filament\Widgets\Widget;
 use Eloquage\FilamentHorizon\Services\HorizonApi;
+use Filament\Widgets\Widget;
 
 class WorkloadWidget extends Widget
 {

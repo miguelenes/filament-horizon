@@ -4,6 +4,8 @@ namespace Eloquage\FilamentHorizon\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
+use Eloquage\FilamentHorizon\FilamentHorizonPlugin;
+use Eloquage\FilamentHorizon\FilamentHorizonServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
@@ -20,8 +22,6 @@ use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Laravel\Horizon\HorizonServiceProvider;
 use Livewire\LivewireServiceProvider;
-use Eloquage\FilamentHorizon\FilamentHorizonPlugin;
-use Eloquage\FilamentHorizon\FilamentHorizonServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 

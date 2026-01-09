@@ -4,13 +4,13 @@ namespace Eloquage\FilamentHorizon\Pages;
 
 use BackedEnum;
 use Carbon\Carbon;
+use Eloquage\FilamentHorizon\Clusters\Horizon;
+use Eloquage\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
+use Eloquage\FilamentHorizon\Services\HorizonApi;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Enums\Width;
 use Livewire\Attributes\Url;
-use Eloquage\FilamentHorizon\Clusters\Horizon;
-use Eloquage\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
-use Eloquage\FilamentHorizon\Services\HorizonApi;
 
 class FailedJobs extends Page
 {

@@ -2,6 +2,9 @@
 
 namespace Eloquage\FilamentHorizon;
 
+use Eloquage\FilamentHorizon\Commands\FilamentHorizonCommand;
+use Eloquage\FilamentHorizon\Services\HorizonApi;
+use Eloquage\FilamentHorizon\Testing\TestsFilamentHorizon;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
@@ -15,9 +18,6 @@ use Laravel\Horizon\Contracts\SupervisorRepository;
 use Laravel\Horizon\Contracts\TagRepository;
 use Laravel\Horizon\Contracts\WorkloadRepository;
 use Livewire\Features\SupportTesting\Testable;
-use Eloquage\FilamentHorizon\Commands\FilamentHorizonCommand;
-use Eloquage\FilamentHorizon\Services\HorizonApi;
-use Eloquage\FilamentHorizon\Testing\TestsFilamentHorizon;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

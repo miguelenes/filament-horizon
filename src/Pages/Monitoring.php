@@ -3,15 +3,15 @@
 namespace Eloquage\FilamentHorizon\Pages;
 
 use BackedEnum;
+use Eloquage\FilamentHorizon\Clusters\Horizon;
+use Eloquage\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
+use Eloquage\FilamentHorizon\Services\HorizonApi;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
 use Illuminate\Support\Collection;
-use Eloquage\FilamentHorizon\Clusters\Horizon;
-use Eloquage\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
-use Eloquage\FilamentHorizon\Services\HorizonApi;
 
 class Monitoring extends Page
 {

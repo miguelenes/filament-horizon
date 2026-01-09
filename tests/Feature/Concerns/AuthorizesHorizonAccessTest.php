@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Gate;
 use Eloquage\FilamentHorizon\Pages\Dashboard;
+use Illuminate\Support\Facades\Gate;
 
 it('allows access in local environment', function () {
     config()->set('app.env', 'local');

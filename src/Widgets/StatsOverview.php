@@ -3,9 +3,9 @@
 namespace Eloquage\FilamentHorizon\Widgets;
 
 use Carbon\CarbonInterval;
+use Eloquage\FilamentHorizon\Services\HorizonApi;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Eloquage\FilamentHorizon\Services\HorizonApi;
 
 class StatsOverview extends BaseWidget
 {

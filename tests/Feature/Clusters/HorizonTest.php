@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Gate;
 use Eloquage\FilamentHorizon\Clusters\Horizon;
+use Illuminate\Support\Facades\Gate;
 
 it('has correct navigation icon', function () {
     $reflection = new ReflectionClass(Horizon::class);

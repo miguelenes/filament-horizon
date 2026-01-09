@@ -4,12 +4,12 @@ namespace Eloquage\FilamentHorizon\Pages;
 
 use BackedEnum;
 use Carbon\Carbon;
-use Filament\Pages\Page;
-use Filament\Panel;
-use Filament\Support\Enums\Width;
 use Eloquage\FilamentHorizon\Clusters\Horizon;
 use Eloquage\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
 use Eloquage\FilamentHorizon\Services\HorizonApi;
+use Filament\Pages\Page;
+use Filament\Panel;
+use Filament\Support\Enums\Width;
 
 class MetricsPreview extends Page
 {

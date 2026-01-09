@@ -1,5 +1,6 @@
 <?php
 
+use Eloquage\FilamentHorizon\Services\HorizonApi;
 use Illuminate\Bus\BatchRepository;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -15,7 +16,6 @@ use Laravel\Horizon\Jobs\MonitorTag;
 use Laravel\Horizon\Jobs\RetryFailedJob;
 use Laravel\Horizon\Jobs\StopMonitoringTag;
 use Laravel\Horizon\WaitTimeCalculator;
-use Eloquage\FilamentHorizon\Services\HorizonApi;
 
 function createMockApi(): HorizonApi
 {

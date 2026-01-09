@@ -3,10 +3,10 @@
 namespace Eloquage\FilamentHorizon\Pages;
 
 use BackedEnum;
-use Filament\Pages\Page;
-use Filament\Support\Enums\Width;
 use Eloquage\FilamentHorizon\Clusters\Horizon;
 use Eloquage\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
+use Filament\Pages\Page;
+use Filament\Support\Enums\Width;
 
 class Dashboard extends Page
 {

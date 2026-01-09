@@ -2,8 +2,8 @@
 
 namespace Eloquage\FilamentHorizon\Widgets;
 
-use Filament\Widgets\Widget;
 use Eloquage\FilamentHorizon\Services\HorizonApi;
+use Filament\Widgets\Widget;
 
 class WorkersWidget extends Widget
 {

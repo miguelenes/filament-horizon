@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Gate;
-use Livewire\Livewire;
 use Eloquage\FilamentHorizon\Pages\Batches;
 use Eloquage\FilamentHorizon\Pages\Dashboard;
 use Eloquage\FilamentHorizon\Pages\FailedJobs;
@@ -12,6 +10,8 @@ use Eloquage\FilamentHorizon\Services\HorizonApi;
 use Eloquage\FilamentHorizon\Widgets\StatsOverview;
 use Eloquage\FilamentHorizon\Widgets\WorkersWidget;
 use Eloquage\FilamentHorizon\Widgets\WorkloadWidget;
+use Illuminate\Support\Facades\Gate;
+use Livewire\Livewire;
 
 beforeEach(function () {
     $this->api = Mockery::mock(HorizonApi::class);
