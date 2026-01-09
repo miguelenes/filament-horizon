@@ -44,7 +44,7 @@ it('checks gate in production when allowed', function () {
 it('checks gate in production when denied', function () {
     config()->set('app.env', 'production');
 
-    Gate::forget('viewHorizon');
+    // Redefine the gate (Laravel 12 doesn't have forget method)
     Gate::define('viewHorizon', fn ($user = null) => false);
 
     expect(Horizon::canAccess())->toBeFalse();

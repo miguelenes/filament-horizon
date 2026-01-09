@@ -219,7 +219,10 @@ it('humanizes time correctly', function () {
 
 it('has correct polling interval', function () {
     $widget = new StatsOverview;
-    expect($widget->getPollingInterval())->toBe('5s');
+    $reflection = new ReflectionClass(StatsOverview::class);
+    $method = $reflection->getMethod('getPollingInterval');
+    $method->setAccessible(true);
+    expect($method->invoke($widget))->toBe('5s');
 });
 
 it('has full column span', function () {

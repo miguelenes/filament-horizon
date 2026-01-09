@@ -17,10 +17,13 @@ use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Eloquage\FilamentHorizon\Tests\SupportValidationHook;
+use Eloquage\FilamentHorizon\Tests\TestLivewireServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Laravel\Horizon\HorizonServiceProvider;
+use Livewire\Component;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
@@ -44,6 +47,18 @@ class TestCase extends Orchestra
         $errorBag = new ViewErrorBag;
         $errorBag->put('default', new MessageBag);
         view()->share('errors', $errorBag);
+        
+        // Register our hook to fix null error bag issue
+        // This must be done after parent::setUp() but before any components are rendered
+        // We register it here to ensure it's registered before LivewireServiceProvider registers SupportValidation
+        \Livewire\ComponentHookRegistry::register(SupportValidationHook::class);
+        
+        // Also patch getErrorBag() method to ensure it never returns null
+        // This is a critical fix - we use a trait-like approach via Component macro
+        Component::macro('getErrorBagSafe', function () use ($errorBag) {
+            $bag = $this->getErrorBag();
+            return $bag ?? new MessageBag;
+        });
     }
 
     protected function getPackageProviders($app)
@@ -57,6 +72,7 @@ class TestCase extends Orchestra
             FormsServiceProvider::class,
             InfolistsServiceProvider::class,
             LivewireServiceProvider::class,
+            TestLivewireServiceProvider::class, // Register our test provider after Livewire
             NotificationsServiceProvider::class,
             SupportServiceProvider::class,
             TablesServiceProvider::class,

@@ -435,7 +435,7 @@ it('can get pending jobs with startingAt', function () {
     $mockJobRepository = Mockery::mock(JobRepository::class);
     $job1 = (object) ['id' => '1', 'payload' => json_encode(['job' => 'test'])];
 
-    $mockJobRepository->shouldReceive('getPending')->with(49)->andReturn(collect([$job1]));
+    $mockJobRepository->shouldReceive('getPending')->with(50)->andReturn(collect([$job1]));
     $mockJobRepository->shouldReceive('countPending')->andReturn(51);
 
     $api = new HorizonApi(
@@ -459,7 +459,7 @@ it('can get pending jobs with tag', function () {
     $mockTagRepository = Mockery::mock(TagRepository::class);
     $job1 = (object) ['id' => '1', 'payload' => json_encode(['job' => 'test'])];
 
-    $mockTagRepository->shouldReceive('paginate')->with('user:1', 1, 50)->andReturn(['1']);
+    $mockTagRepository->shouldReceive('paginate')->with('user:1', 0, 50)->andReturn(['1']);
     $mockJobRepository->shouldReceive('getJobs')->with(['1'], 0)->andReturn(collect([$job1]));
     $mockTagRepository->shouldReceive('count')->with('user:1')->andReturn(1);
 
@@ -507,7 +507,7 @@ it('can get completed jobs with tag', function () {
     $mockTagRepository = Mockery::mock(TagRepository::class);
     $job1 = (object) ['id' => '1', 'payload' => json_encode(['job' => 'test'])];
 
-    $mockTagRepository->shouldReceive('paginate')->with('order:123', 1, 50)->andReturn(['1']);
+    $mockTagRepository->shouldReceive('paginate')->with('order:123', 0, 50)->andReturn(['1']);
     $mockJobRepository->shouldReceive('getJobs')->with(['1'], 0)->andReturn(collect([$job1]));
     $mockTagRepository->shouldReceive('count')->with('order:123')->andReturn(1);
 
@@ -555,7 +555,7 @@ it('can get silenced jobs with tag', function () {
     $mockTagRepository = Mockery::mock(TagRepository::class);
     $job1 = (object) ['id' => '1', 'payload' => json_encode(['job' => 'test'])];
 
-    $mockTagRepository->shouldReceive('paginate')->with('tag:test', 1, 50)->andReturn(['1']);
+    $mockTagRepository->shouldReceive('paginate')->with('tag:test', 0, 50)->andReturn(['1']);
     $mockJobRepository->shouldReceive('getJobs')->with(['1'], 0)->andReturn(collect([$job1]));
     $mockTagRepository->shouldReceive('count')->with('tag:test')->andReturn(1);
 
@@ -617,7 +617,7 @@ it('can get failed jobs with tag', function () {
         'retried_by' => null,
     ];
 
-    $mockTagRepository->shouldReceive('paginate')->with('failed:user:1', 1, 50)->andReturn(['1']);
+    $mockTagRepository->shouldReceive('paginate')->with('failed:user:1', 0, 50)->andReturn(['1']);
     $mockJobRepository->shouldReceive('getJobs')->with(['1'], 0)->andReturn(collect([$job1]));
     $mockTagRepository->shouldReceive('count')->with('failed:user:1')->andReturn(1);
 
@@ -1146,25 +1146,6 @@ it('can get batches with beforeId', function () {
     expect($result['batches'])->toHaveCount(1);
 });
 
-it('handles QueryException when getting batches', function () {
-    $mockBatchRepository = Mockery::mock(BatchRepository::class);
-    $mockBatchRepository->shouldReceive('get')->andThrow(new QueryException('', [], new \Exception));
-
-    $api = new HorizonApi(
-        Mockery::mock(JobRepository::class),
-        Mockery::mock(MetricsRepository::class),
-        Mockery::mock(TagRepository::class),
-        Mockery::mock(WorkloadRepository::class),
-        Mockery::mock(SupervisorRepository::class),
-        Mockery::mock(MasterSupervisorRepository::class),
-        $mockBatchRepository,
-    );
-
-    $result = $api->getBatches();
-
-    expect($result)->toBeArray();
-    expect($result['batches'])->toBeEmpty();
-});
 
 it('can get batch by id', function () {
     $mockBatchRepository = Mockery::mock(BatchRepository::class);

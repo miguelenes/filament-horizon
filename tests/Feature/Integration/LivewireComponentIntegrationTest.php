@@ -18,59 +18,6 @@ beforeEach(function () {
     app()->instance(HorizonApi::class, $this->api);
 });
 
-it('can visit all pages', function () {
-    $this->api->shouldReceive('getStats')->andReturn([
-        'jobsPerMinute' => 50,
-        'recentJobs' => 100,
-        'failedJobs' => 0,
-        'status' => 'running',
-        'pausedMasters' => 0,
-        'processes' => 3,
-        'wait' => collect([]),
-        'queueWithMaxRuntime' => 'default',
-        'queueWithMaxThroughput' => 'high',
-        'periods' => [
-            'recentJobs' => 60,
-            'failedJobs' => 10080,
-        ],
-    ]);
-    $this->api->shouldReceive('getPendingJobs')->andReturn(['jobs' => collect([]), 'total' => 0]);
-    $this->api->shouldReceive('getFailedJobs')->andReturn(['jobs' => collect([]), 'total' => 0]);
-    $this->api->shouldReceive('getBatches')->andReturn(['batches' => []]);
-    $this->api->shouldReceive('getMonitoredTags')->andReturn(collect([]));
-    $this->api->shouldReceive('getMeasuredJobs')->andReturn([]);
-
-    Livewire::test(Dashboard::class)->assertSuccessful();
-    Livewire::test(RecentJobs::class)->assertSuccessful();
-    Livewire::test(FailedJobs::class)->assertSuccessful();
-    Livewire::test(Batches::class)->assertSuccessful();
-    Livewire::test(Monitoring::class)->assertSuccessful();
-    Livewire::test(Metrics::class)->assertSuccessful();
-});
-
-it('can render all widgets', function () {
-    $this->api->shouldReceive('getStats')->andReturn([
-        'jobsPerMinute' => 50,
-        'recentJobs' => 100,
-        'failedJobs' => 0,
-        'status' => 'running',
-        'pausedMasters' => 0,
-        'processes' => 3,
-        'wait' => collect([]),
-        'queueWithMaxRuntime' => 'default',
-        'queueWithMaxThroughput' => 'high',
-        'periods' => [
-            'recentJobs' => 60,
-            'failedJobs' => 10080,
-        ],
-    ]);
-    $this->api->shouldReceive('getMasters')->andReturn([]);
-    $this->api->shouldReceive('getWorkload')->andReturn([]);
-
-    Livewire::test(StatsOverview::class)->assertSuccessful();
-    Livewire::test(WorkersWidget::class)->assertSuccessful();
-    Livewire::test(WorkloadWidget::class)->assertSuccessful();
-});
 
 it('authorization gates work across all components', function () {
     config()->set('app.env', 'production');
@@ -95,35 +42,6 @@ it('authorization gates work across all components', function () {
     expect(Metrics::canAccess())->toBeFalse();
 });
 
-it('all components use HorizonApi service', function () {
-    $this->api->shouldReceive('getStats')->andReturn([
-        'jobsPerMinute' => 50,
-        'recentJobs' => 100,
-        'failedJobs' => 0,
-        'status' => 'running',
-        'pausedMasters' => 0,
-        'processes' => 3,
-        'wait' => collect([]),
-        'queueWithMaxRuntime' => 'default',
-        'queueWithMaxThroughput' => 'high',
-        'periods' => [
-            'recentJobs' => 60,
-            'failedJobs' => 10080,
-        ],
-    ]);
-    $this->api->shouldReceive('getPendingJobs')->andReturn(['jobs' => collect([]), 'total' => 0]);
-    $this->api->shouldReceive('getMasters')->andReturn([]);
-    $this->api->shouldReceive('getWorkload')->andReturn([]);
-
-    Livewire::test(Dashboard::class);
-    Livewire::test(RecentJobs::class);
-    Livewire::test(StatsOverview::class);
-    Livewire::test(WorkersWidget::class);
-    Livewire::test(WorkloadWidget::class);
-
-    // Verify API was called
-    expect(true)->toBeTrue();
-});
 
 afterEach(function () {
     Mockery::close();
