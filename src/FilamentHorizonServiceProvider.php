@@ -10,11 +10,11 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
+use Miguelenes\FilamentHorizon\Commands\FilamentHorizonCommand;
+use Miguelenes\FilamentHorizon\Testing\TestsFilamentHorizon;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Miguelenes\FilamentHorizon\Commands\FilamentHorizonCommand;
-use Miguelenes\FilamentHorizon\Testing\TestsFilamentHorizon;
 
 class FilamentHorizonServiceProvider extends PackageServiceProvider
 {
