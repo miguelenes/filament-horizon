@@ -133,7 +133,7 @@ class MonitoringTag extends Page
         return Carbon::createFromTimestamp($timestamp)->diffForHumans();
     }
 
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }

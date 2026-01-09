@@ -134,8 +134,7 @@ class FailedJobs extends Page
         return isset($job->retried_by) && $job->retried_by instanceof \Illuminate\Support\Collection && $job->retried_by->isNotEmpty();
     }
 
-
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }

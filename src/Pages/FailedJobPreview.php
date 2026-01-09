@@ -98,7 +98,7 @@ class FailedJobPreview extends Page
         return $job->retried_by->contains(fn ($retry) => ($retry->status ?? null) === 'completed');
     }
 
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }

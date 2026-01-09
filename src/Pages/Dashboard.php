@@ -4,7 +4,6 @@ namespace Miguelenes\FilamentHorizon\Pages;
 
 use BackedEnum;
 use Filament\Pages\Page;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Support\Enums\Width;
 use Miguelenes\FilamentHorizon\Clusters\Horizon;
 use Miguelenes\FilamentHorizon\Concerns\AuthorizesHorizonAccess;
@@ -31,7 +30,7 @@ class Dashboard extends Page
         return __('filament-horizon::horizon.pages.dashboard.title');
     }
 
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }

@@ -75,7 +75,7 @@ class Batches extends Page
         return (int) round(($processed / $total) * 100);
     }
 
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }

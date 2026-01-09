@@ -63,7 +63,7 @@ class Metrics extends Page
         return number_format($runtime, 2) . 'ms';
     }
 
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }

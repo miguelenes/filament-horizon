@@ -113,7 +113,7 @@ class RecentJobs extends Page
         return \Carbon\Carbon::createFromTimestamp($timestamp)->diffForHumans();
     }
 
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }

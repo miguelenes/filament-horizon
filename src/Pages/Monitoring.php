@@ -93,7 +93,7 @@ class Monitoring extends Page
             ->send();
     }
 
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }

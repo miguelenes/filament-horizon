@@ -65,7 +65,7 @@ class JobPreview extends Page
         return Carbon::createFromTimestamp($timestamp)->format('Y-m-d H:i:s');
     }
 
-    public function getMaxContentWidth(): Width|null|string
+    public function getMaxContentWidth(): Width | null | string
     {
         return Width::Full;
     }
