@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Miguelenes\FilamentHorizon\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentHorizonCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-horizon';
 
     public $description = 'My command';
 
