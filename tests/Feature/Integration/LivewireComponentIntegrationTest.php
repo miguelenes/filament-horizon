@@ -7,17 +7,12 @@ use Eloquage\FilamentHorizon\Pages\Metrics;
 use Eloquage\FilamentHorizon\Pages\Monitoring;
 use Eloquage\FilamentHorizon\Pages\RecentJobs;
 use Eloquage\FilamentHorizon\Services\HorizonApi;
-use Eloquage\FilamentHorizon\Widgets\StatsOverview;
-use Eloquage\FilamentHorizon\Widgets\WorkersWidget;
-use Eloquage\FilamentHorizon\Widgets\WorkloadWidget;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Livewire;
 
 beforeEach(function () {
     $this->api = Mockery::mock(HorizonApi::class);
     app()->instance(HorizonApi::class, $this->api);
 });
-
 
 it('authorization gates work across all components', function () {
     config()->set('app.env', 'production');
@@ -41,7 +36,6 @@ it('authorization gates work across all components', function () {
     expect(Monitoring::canAccess())->toBeFalse();
     expect(Metrics::canAccess())->toBeFalse();
 });
-
 
 afterEach(function () {
     Mockery::close();

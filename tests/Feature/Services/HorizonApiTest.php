@@ -2,7 +2,6 @@
 
 use Eloquage\FilamentHorizon\Services\HorizonApi;
 use Illuminate\Bus\BatchRepository;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Config;
@@ -1145,7 +1144,6 @@ it('can get batches with beforeId', function () {
     expect($result)->toBeArray();
     expect($result['batches'])->toHaveCount(1);
 });
-
 
 it('can get batch by id', function () {
     $mockBatchRepository = Mockery::mock(BatchRepository::class);

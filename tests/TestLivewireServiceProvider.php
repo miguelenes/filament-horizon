@@ -2,7 +2,6 @@
 
 namespace Eloquage\FilamentHorizon\Tests;
 
-use Illuminate\Support\MessageBag;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Features\SupportValidation\SupportValidation;
 
